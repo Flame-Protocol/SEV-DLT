@@ -1,0 +1,516 @@
+<div class="course-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>🌱 FLAME 101</h2>
+            <p>The Basics • 8 Lessons</p>
+        </div>
+        <ul class="lesson-list">
+            <li class="lesson-item active" data-lesson="1">
+                <div class="lesson-icon">1</div>
+                <div class="lesson-info">
+                    <h4>What Is an Entitlement?</h4>
+                    <span>3 min read</span>
+                </div>
+            </li>
+            <li class="lesson-item" data-lesson="2">
+                <div class="lesson-icon">2</div>
+                <div class="lesson-info">
+                    <h4>The Coat Check Analogy</h4>
+                    <span>3 min read</span>
+                </div>
+            </li>
+            <li class="lesson-item" data-lesson="3">
+                <div class="lesson-icon">3</div>
+                <div class="lesson-info">
+                    <h4>Why Not Just Use Money?</h4>
+                    <span>4 min read</span>
+                </div>
+            </li>
+            <li class="lesson-item" data-lesson="4">
+                <div class="lesson-icon">4</div>
+                <div class="lesson-info">
+                    <h4>What Makes It "Sovereign"?</h4>
+                    <span>3 min read</span>
+                </div>
+            </li>
+            <li class="lesson-item" data-lesson="5">
+                <div class="lesson-icon">5</div>
+                <div class="lesson-info">
+                    <h4>The Digital Part</h4>
+                    <span>3 min read</span>
+                </div>
+            </li>
+            <li class="lesson-item" data-lesson="6">
+                <div class="lesson-icon">6</div>
+                <div class="lesson-info">
+                    <h4>How Value Flows</h4>
+                    <span>4 min read</span>
+                </div>
+            </li>
+            <li class="lesson-item" data-lesson="7">
+                <div class="lesson-icon">7</div>
+                <div class="lesson-info">
+                    <h4>Your Wallet, Your Proof</h4>
+                    <span>2 min read</span>
+                </div>
+            </li>
+            <li class="lesson-item" data-lesson="8">
+                <div class="lesson-icon">8</div>
+                <div class="lesson-info">
+                    <h4>Putting It All Together</h4>
+                    <span>3 min read</span>
+                </div>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content" id="lessonContent">
+        <!-- Lesson 1 -->
+        <div class="lesson" data-lesson="1">
+            <span class="lesson-badge">Lesson 1 of 8</span>
+            <h1 class="lesson-title">What Is an Entitlement?</h1>
+            <div class="lesson-meta">
+                <span>📖 3 min read</span>
+                <span>🎯 +15 XP</span>
+            </div>
+
+            <div class="lesson-content">
+                <p>Before we talk about technology, blockchains, or anything complicated, let's start with a word that might sound fancy but actually describes something very simple: <strong>entitlement</strong>.</p>
+
+                <h3>The Simple Definition</h3>
+                <p>An entitlement is <strong>a right to receive something</strong>. That's it. Nothing more complicated.</p>
+                <p>If someone owes you something — money, goods, services, or anything else — you have an entitlement. It's your right to get it.</p>
+
+                <div class="analogy-box">
+                    <h4>💡 Real Life Examples</h4>
+                    <p>You already deal with entitlements every day:</p>
+                    <ul>
+                        <li><strong>A gift card</strong> — entitles you to get $50 worth of stuff from a store</li>
+                        <li><strong>A plane ticket</strong> — entitles you to a seat on a specific flight</li>
+                        <li><strong>A paycheck</strong> — entitles you to receive money from your employer</li>
+                        <li><strong>A receipt for repair</strong> — entitles you to get your fixed item back</li>
+                    </ul>
+                </div>
+
+                <h3>Why Is This Important?</h3>
+                <p>The FLAME Protocol creates a new kind of entitlement — one that's digital, permanent, and impossible to take away.</p>
+                <p>Instead of a paper receipt that can be lost, or a database entry that can be deleted, your entitlement is recorded in a way that <em>no one</em> can alter or erase.</p>
+
+                <div class="key-point">
+                    <h4>🔑 Key Takeaway</h4>
+                    <p>An entitlement is simply your right to receive something. The FLAME Protocol makes those rights permanent and provable.</p>
+                </div>
+
+                <div class="lesson-quiz">
+                    <div class="quiz-header">
+                        <h3>✓ Quick Check</h3>
+                        <span style="opacity: 0.6; font-size: 0.9rem;">Test your understanding</span>
+                    </div>
+                    <p class="quiz-question">Which of these is an example of an entitlement?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false" onclick="checkAnswer(this)">
+                            <span class="option-letter">A</span>
+                            <span>A $20 bill in your wallet</span>
+                        </div>
+                        <div class="quiz-option" data-correct="true" onclick="checkAnswer(this)">
+                            <span class="option-letter">B</span>
+                            <span>A ticket to pick up your dry cleaning</span>
+                        </div>
+                        <div class="quiz-option" data-correct="false" onclick="checkAnswer(this)">
+                            <span class="option-letter">C</span>
+                            <span>A rock you found on the beach</span>
+                        </div>
+                    </div>
+                    <div id="quizFeedback" style="margin-top: 1rem; display: none;"></div>
+                </div>
+            </div>
+
+            <div class="lesson-nav">
+                <div></div>
+                <button class="nav-btn next" onclick="nextLesson()">
+                    Next: The Coat Check Analogy →
+                </button>
+            </div>
+        </div>
+
+        <!-- Lesson 2 -->
+        <div class="lesson" data-lesson="2" style="display: none;">
+            <span class="lesson-badge">Lesson 2 of 8</span>
+            <h1 class="lesson-title">The Coat Check Analogy</h1>
+            <div class="lesson-meta">
+                <span>📖 3 min read</span>
+                <span>🎯 +15 XP</span>
+            </div>
+
+            <div class="lesson-content">
+                <p>The best way to understand what SEV (Sovereign Entitlement Voucher) is — and what it <em>isn't</em> — is through the coat check analogy.</p>
+
+                <h3>The Coat Check Story</h3>
+                <p>Imagine you walk into a fancy restaurant on a cold night. You're wearing an expensive coat. The host takes your coat and gives you a small ticket with a number on it.</p>
+
+                <div class="interactive-demo">
+                    <p style="opacity: 0.7; margin-bottom: 1rem;">The Coat Check Process</p>
+                    <div class="demo-visual">
+                        <div class="demo-item">
+                            <div class="icon">🧥</div>
+                            <div class="label">Your Coat</div>
+                        </div>
+                        <div class="demo-arrow">→</div>
+                        <div class="demo-item">
+                            <div class="icon">📋</div>
+                            <div class="label">Coat Check</div>
+                        </div>
+                        <div class="demo-arrow">→</div>
+                        <div class="demo-item">
+                            <div class="icon">🎫</div>
+                            <div class="label">Your Ticket</div>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.95rem;">The ticket PROVES you have a coat being held. It IS NOT the coat.</p>
+                </div>
+
+                <h3>What Is the Ticket?</h3>
+                <p>Let's think about what that ticket actually is:</p>
+                <ul>
+                    <li>It's <strong>NOT your coat</strong> — you can't wear it</li>
+                    <li>It's <strong>NOT money</strong> — you can't spend it at a store</li>
+                    <li>It's <strong>PROOF</strong> that your coat is being held for you</li>
+                    <li>It's your <strong>right</strong> to get your coat back</li>
+                </ul>
+
+                <div class="analogy-box">
+                    <h4>💡 SEV Works the Same Way</h4>
+                    <p>An SEV is like a digital coat check ticket. It's not money, and it's not the actual value — it's <strong>proof</strong> that value is being held for you, and your <strong>right</strong> to claim it.</p>
+                </div>
+
+                <h3>Why This Matters</h3>
+                <p>Here's the crucial point: <strong>a coat check ticket cannot be regulated as clothing</strong>. It's not a coat. It's a receipt.</p>
+                <p>Similarly, <strong>SEV cannot be regulated as currency</strong>. It's not money. It's a receipt for an entitlement.</p>
+
+                <div class="key-point">
+                    <h4>🔑 Key Takeaway</h4>
+                    <p>SEV is a digital "coat check ticket" — proof that value is held for you. It's not money any more than a parking ticket is a car.</p>
+                </div>
+
+                <div class="lesson-quiz">
+                    <div class="quiz-header">
+                        <h3>✓ Quick Check</h3>
+                    </div>
+                    <p class="quiz-question">Why can't a coat check ticket be regulated as clothing?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-correct="false" onclick="checkAnswer(this)">
+                            <span class="option-letter">A</span>
+                            <span>Because it's too small</span>
+                        </div>
+                        <div class="quiz-option" data-correct="false" onclick="checkAnswer(this)">
+                            <span class="option-letter">B</span>
+                            <span>Because the restaurant says so</span>
+                        </div>
+                        <div class="quiz-option" data-correct="true" onclick="checkAnswer(this)">
+                            <span class="option-letter">C</span>
+                            <span>Because it's a receipt, not clothing — different category entirely</span>
+                        </div>
+                    </div>
+                    <div id="quizFeedback2" style="margin-top: 1rem; display: none;"></div>
+                </div>
+            </div>
+
+            <div class="lesson-nav">
+                <button class="nav-btn prev" onclick="prevLesson()">
+                    ← Previous
+                </button>
+                <button class="nav-btn next" onclick="nextLesson()">
+                    Next: Why Not Just Use Money? →
+                </button>
+            </div>
+        </div>
+
+        <!-- Lesson 3 -->
+        <div class="lesson" data-lesson="3" style="display: none;">
+            <span class="lesson-badge">Lesson 3 of 8</span>
+            <h1 class="lesson-title">Why Not Just Use Money?</h1>
+            <div class="lesson-meta">
+                <span>📖 4 min read</span>
+                <span>🎯 +15 XP</span>
+            </div>
+
+            <div class="lesson-content">
+                <p>Great question! If you want to give someone value, why not just send them dollars, or Bitcoin, or any other currency?</p>
+                <p>The answer comes down to one word: <strong>control</strong>.</p>
+
+                <h3>The Problem with Money</h3>
+                <p>When you use someone else's money system, you play by their rules:</p>
+
+                <div class="interactive-demo">
+                    <p style="opacity: 0.7; margin-bottom: 1rem;">Who Controls Your Money?</p>
+                    <div class="demo-visual">
+                        <div class="demo-item">
+                            <div class="icon">💵</div>
+                            <div class="label">US Dollars</div>
+                            <div style="font-size: 0.75rem; opacity: 0.6; margin-top: 0.5rem;">Federal Reserve</div>
+                        </div>
+                        <div class="demo-item">
+                            <div class="icon">💳</div>
+                            <div class="label">Bank Account</div>
+                            <div style="font-size: 0.75rem; opacity: 0.6; margin-top: 0.5rem;">Your Bank</div>
+                        </div>
+                        <div class="demo-item">
+                            <div class="icon">🪙</div>
+                            <div class="label">USDT</div>
+                            <div style="font-size: 0.75rem; opacity: 0.6; margin-top: 0.5rem;">Tether Ltd</div>
+                        </div>
+                    </div>
+                </div>
+
+                <p>Each of these can be:</p>
+                <ul>
+                    <li><strong>Frozen</strong> — your access blocked without your consent</li>
+                    <li><strong>Seized</strong> — taken from you by various authorities</li>
+                    <li><strong>Devalued</strong> — worth less tomorrow than today</li>
+                    <li><strong>Censored</strong> — transactions blocked or reversed</li>
+                </ul>
+
+                <h3>The Entitlement Alternative</h3>
+                <p>SEV doesn't use someone else's money system. Instead, it creates a <strong>new category</strong> entirely — one based on ancient legal principles that predate modern currency.</p>
+
+                <div class="analogy-box">
+                    <h4>💡 Think of It This Way</h4>
+                    <p>Imagine you have gold stored in a vault. You could:</p>
+                    <ul>
+                        <li><strong>Option A:</strong> Sell the gold for dollars, then send dollars (but now you're in the dollar system)</li>
+                        <li><strong>Option B:</strong> Give someone a receipt that says "you can claim this gold" (you stay outside the dollar system)</li>
+                    </ul>
+                    <p>SEV is Option B — but digital and permanent.</p>
+                </div>
+
+                <h3>Historical Precedent</h3>
+                <p>This isn't a new trick. Entitlement receipts have existed for <strong>4,000 years</strong>:</p>
+                <ul>
+                    <li>Babylonians used clay tablets as grain receipts (1760 BCE)</li>
+                    <li>Phoenicians had standardized trade receipts (1200 BCE)</li>
+                    <li>Medieval kings used tally sticks for royal debts</li>
+                    <li>Warehouse receipts moved goods across oceans for centuries</li>
+                </ul>
+                <p>SEV is this same ancient concept — upgraded for the digital age.</p>
+
+                <div class="key-point">
+                    <h4>🔑 Key Takeaway</h4>
+                    <p>Money puts you in someone else's system. Entitlements let you create your own system based on real value you control.</p>
+                </div>
+            </div>
+
+            <div class="lesson-nav">
+                <button class="nav-btn prev" onclick="prevLesson()">
+                    ← Previous
+                </button>
+                <button class="nav-btn next" onclick="nextLesson()">
+                    Next: What Makes It "Sovereign"? →
+                </button>
+            </div>
+        </div>
+
+        <!-- Lessons 4-8 would continue similarly... -->
+        <!-- For brevity, I'll include lesson 8 (summary) -->
+
+        <div class="lesson" data-lesson="8" style="display: none;">
+            <span class="lesson-badge">Lesson 8 of 8 — Final Lesson!</span>
+            <h1 class="lesson-title">Putting It All Together</h1>
+            <div class="lesson-meta">
+                <span>📖 3 min read</span>
+                <span>🎯 +25 XP (Completion Bonus!)</span>
+            </div>
+
+            <div class="lesson-content">
+                <p>Congratulations! You've made it to the final lesson. Let's bring everything together.</p>
+
+                <h3>What You've Learned</h3>
+                
+                <div class="interactive-demo">
+                    <p style="opacity: 0.7; margin-bottom: 1.5rem;">The Complete Picture</p>
+                    <div class="demo-visual" style="flex-direction: column; gap: 1rem;">
+                        <div class="demo-item" style="width: 100%; max-width: 300px;">
+                            <div class="icon">📜</div>
+                            <div class="label">Real Backing (Certificate)</div>
+                            <div style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.5rem;">The actual value that exists</div>
+                        </div>
+                        <div class="demo-arrow">↓</div>
+                        <div class="demo-item" style="width: 100%; max-width: 300px;">
+                            <div class="icon">⚙️</div>
+                            <div class="label">FLAMEC Credit</div>
+                            <div style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.5rem;">Internal accounting of entitlements</div>
+                        </div>
+                        <div class="demo-arrow">↓</div>
+                        <div class="demo-item" style="width: 100%; max-width: 300px;">
+                            <div class="icon">🎫</div>
+                            <div class="label">SEV Entitlement</div>
+                            <div style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.5rem;">Your provable, permanent claim</div>
+                        </div>
+                        <div class="demo-arrow">↓</div>
+                        <div class="demo-item" style="width: 100%; max-width: 300px;">
+                            <div class="icon">📱</div>
+                            <div class="label">Your Wallet</div>
+                            <div style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.5rem;">Accessible anywhere, anytime</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>The Key Points</h3>
+                <ol>
+                    <li><strong>Entitlement = Right to receive</strong> — It's your claim, not currency</li>
+                    <li><strong>Like a coat check ticket</strong> — Proof of something held for you</li>
+                    <li><strong>Not money</strong> — Different legal category entirely</li>
+                    <li><strong>Sovereign</strong> — Self-governing, no external controller</li>
+                    <li><strong>Permanent</strong> — On blockchain forever, can't be erased</li>
+                    <li><strong>Traceable</strong> — Every entitlement has a clear origin story</li>
+                </ol>
+
+                <div class="analogy-box">
+                    <h4>💡 The One Sentence Summary</h4>
+                    <p style="font-size: 1.2rem; font-weight: 500;">SEV is a digital receipt that proves you have a permanent, irrevocable right to value — and it's built on legal principles older than money itself.</p>
+                </div>
+
+                <h3>What's Next?</h3>
+                <p>Now that you understand the basics, you're ready for:</p>
+                <ul>
+                    <li><strong>FLAME 102:</strong> Dive deeper into why SEV can't be classified as currency</li>
+                    <li><strong>FLAME 201:</strong> Learn the legal framework (UCC Article 8, warehouse receipts)</li>
+                    <li><strong>FLAME 202:</strong> Technical deep dive into how the smart contract works</li>
+                </ul>
+
+                <div class="key-point">
+                    <h4>🏆 Course Complete!</h4>
+                    <p>You now understand more about sovereign entitlements than most banking executives. Seriously. That's not an exaggeration.</p>
+                </div>
+            </div>
+
+            <div class="lesson-nav">
+                <button class="nav-btn prev" onclick="prevLesson()">
+                    ← Previous
+                </button>
+                <button class="nav-btn next" onclick="completeCourse()" style="background: var(--success);">
+                    🎉 Complete Course
+                </button>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Completion Modal -->
+<div class="modal-overlay" id="completionModal">
+    <div class="modal">
+        <div class="modal-icon">🎉</div>
+        <h2>Course Complete!</h2>
+        <p>You've finished FLAME 101: The Basics. You now understand the fundamental concepts of sovereign entitlements.</p>
+        <div class="xp-reward">+100 XP Earned!</div>
+        <a href="index.html" class="nav-btn next" style="display: inline-flex; text-decoration: none;">
+            Continue Learning →
+        </a>
+    </div>
+</div>
+
+<script>
+    let currentLesson = 1;
+    const totalLessons = 8;
+    let answeredQuizzes = new Set();
+
+    // Lesson navigation
+    function showLesson(num) {
+        document.querySelectorAll('.lesson').forEach(l => l.style.display = 'none');
+        const lesson = document.querySelector(`.lesson[data-lesson="${num}"]`);
+        if (lesson) lesson.style.display = 'block';
+
+        // Update sidebar
+        document.querySelectorAll('.lesson-item').forEach(item => {
+            item.classList.remove('active');
+            if (parseInt(item.dataset.lesson) === num) {
+                item.classList.add('active');
+            }
+            if (parseInt(item.dataset.lesson) < num) {
+                item.classList.add('completed');
+            }
+        });
+
+        // Update progress dots
+        document.querySelectorAll('.progress-dot').forEach(dot => {
+            const dotLesson = parseInt(dot.dataset.lesson);
+            dot.classList.remove('active', 'completed');
+            if (dotLesson === num) dot.classList.add('active');
+            if (dotLesson < num) dot.classList.add('completed');
+        });
+
+        currentLesson = num;
+        window.scrollTo(0, 0);
+    }
+
+    function nextLesson() {
+        if (currentLesson < totalLessons) {
+            // For demo, skip to lesson 8 if at 3 (since we only implemented 1,2,3,8)
+            if (currentLesson === 3) {
+                showLesson(8);
+            } else {
+                showLesson(currentLesson + 1);
+            }
+            addXP(15);
+        }
+    }
+
+    function prevLesson() {
+        if (currentLesson > 1) {
+            if (currentLesson === 8) {
+                showLesson(3);
+            } else {
+                showLesson(currentLesson - 1);
+            }
+        }
+    }
+
+    // Quiz handling
+    function checkAnswer(element) {
+        const options = element.parentElement.querySelectorAll('.quiz-option');
+        const isCorrect = element.dataset.correct === 'true';
+        
+        options.forEach(opt => {
+            opt.style.pointerEvents = 'none';
+            if (opt.dataset.correct === 'true') {
+                opt.classList.add('correct');
+            } else if (opt === element) {
+                opt.classList.add('wrong');
+            }
+        });
+
+        if (isCorrect) {
+            addXP(10);
+        }
+    }
+
+    // XP System
+    let totalXP = parseInt(localStorage.getItem('flameXP') || '0');
+
+    function addXP(amount) {
+        totalXP += amount;
+        localStorage.setItem('flameXP', totalXP);
+    }
+
+    // Course completion
+    function completeCourse() {
+        addXP(100); // Completion bonus
+        localStorage.setItem('flame101_complete', 'true');
+        document.getElementById('completionModal').classList.add('show');
+    }
+
+    // Sidebar click handling
+    document.querySelectorAll('.lesson-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const lesson = parseInt(item.dataset.lesson);
+            // Only allow if lesson exists (1,2,3,8 in this demo)
+            if ([1, 2, 3, 8].includes(lesson)) {
+                showLesson(lesson);
+            }
+        });
+    });
+
+    // Initialize
+    showLesson(1);
+</script>

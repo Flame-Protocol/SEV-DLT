@@ -1,1757 +1,469 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLAME University | Understanding Sovereign Entitlements</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --gold: #C9A227;
-            --gold-light: #E8D59E;
-            --gold-dark: #8B6914;
-            --navy: #0A1628;
-            --navy-light: #152238;
-            --slate: #1E293B;
-            --cream: #FAF7F2;
-            --ember: #FF6B35;
-            --success: #10B981;
-            --font-display: 'Cormorant Garamond', serif;
-            --font-body: 'DM Sans', sans-serif;
-            --font-mono: 'IBM Plex Mono', monospace;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: var(--font-body);
-            background: var(--navy);
-            color: var(--cream);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .bg-pattern {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.03;
-            background-image: repeating-linear-gradient(45deg, var(--gold) 0, var(--gold) 1px, transparent 1px, transparent 50px);
-            animation: patternMove 60s linear infinite;
-        }
-
-        @keyframes patternMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(10, 22, 40, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(201, 162, 39, 0.2);
-            padding: 1rem 2rem;
-        }
-
-        .nav-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        .logo-text {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--gold);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--cream);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            opacity: 0.8;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .nav-links a:hover {
-            opacity: 1;
-            color: var(--gold);
-        }
-
-        .progress-bar {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .progress-track {
-            width: 150px;
-            height: 8px;
-            background: var(--slate);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--gold), var(--ember));
-            width: 0%;
-            transition: width 0.5s ease;
-            border-radius: 4px;
-        }
-
-        .xp-badge {
-            background: var(--slate);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            color: var(--gold);
-        }
-
-        .page {
-            display: none;
-            position: relative;
-            z-index: 1;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 120px 2rem 4rem;
-            text-align: center;
-        }
-
-        .hero-content {
-            max-width: 900px;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(201, 162, 39, 0.1);
-            border: 1px solid rgba(201, 162, 39, 0.3);
-            padding: 0.5rem 1.25rem;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            color: var(--gold);
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .hero h1 {
-            font-family: var(--font-display);
-            font-size: clamp(3rem, 8vw, 5.5rem);
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s ease 0.1s both;
-        }
-
-        .hero h1 .highlight {
-            color: var(--gold);
-            position: relative;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            line-height: 1.7;
-            opacity: 0.85;
-            max-width: 700px;
-            margin: 0 auto 3rem;
-            animation: fadeInUp 0.8s ease 0.2s both;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease 0.3s both;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            font-family: var(--font-body);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            color: var(--navy);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(201, 162, 39, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--cream);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .section {
-            position: relative;
-            z-index: 1;
-            padding: 6rem 2rem;
-        }
-
-        .section-header {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 4rem;
-        }
-
-        .section-header h2 {
-            font-family: var(--font-display);
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .section-header p {
-            font-size: 1.1rem;
-            opacity: 0.75;
-            line-height: 1.7;
-        }
-
-        .courses-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .course-card {
-            background: linear-gradient(135deg, var(--navy-light), var(--slate));
-            border-radius: 24px;
-            padding: 2rem;
-            border: 1px solid rgba(201, 162, 39, 0.1);
-            transition: all 0.4s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .course-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--gold), var(--ember));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-        }
-
-        .course-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .course-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(201, 162, 39, 0.3);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-        }
-
-        .course-level {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.35rem 0.75rem;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1.5rem;
-        }
-
-        .level-beginner {
-            background: rgba(16, 185, 129, 0.15);
-            color: #34D399;
-        }
-
-        .level-intermediate {
-            background: rgba(201, 162, 39, 0.15);
-            color: var(--gold);
-        }
-
-        .level-advanced {
-            background: rgba(255, 107, 53, 0.15);
-            color: var(--ember);
-        }
-
-        .course-icon {
-            width: 64px;
-            height: 64px;
-            background: rgba(201, 162, 39, 0.1);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .course-card h3 {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-
-        .course-card p {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            opacity: 0.75;
-            margin-bottom: 1.5rem;
-        }
-
-        .course-meta {
-            display: flex;
-            gap: 1.5rem;
-            font-size: 0.85rem;
-            opacity: 0.6;
-        }
-
-        /* Course Page Styles */
-        .course-page {
-            padding-top: 80px;
-        }
-
-        .course-header {
-            background: var(--navy-light);
-            padding: 3rem 2rem;
-            border-bottom: 1px solid rgba(201, 162, 39, 0.2);
-        }
-
-        .course-header-content {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .back-btn {
-            color: var(--cream);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            opacity: 0.7;
-            margin-bottom: 1.5rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-            font-size: 1rem;
-            font-family: var(--font-body);
-        }
-
-        .back-btn:hover {
-            opacity: 1;
-            color: var(--gold);
-        }
-
-        .course-header h1 {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .course-header p {
-            font-size: 1.1rem;
-            opacity: 0.75;
-            line-height: 1.6;
-        }
-
-        .lesson-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        .lesson-progress {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 3rem;
-        }
-
-        .lesson-step {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            flex: 1;
-            position: relative;
-        }
-
-        .lesson-step::after {
-            content: '';
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            width: 100%;
-            height: 2px;
-            background: var(--slate);
-        }
-
-        .lesson-step:last-child::after {
-            display: none;
-        }
-
-        .step-dot {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--slate);
-            border: 3px solid var(--slate);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 0.9rem;
-            position: relative;
-            z-index: 1;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .step-dot.active {
-            background: var(--gold);
-            border-color: var(--gold);
-            color: var(--navy);
-        }
-
-        .step-dot.completed {
-            background: var(--success);
-            border-color: var(--success);
-            color: white;
-        }
-
-        .step-label {
-            font-size: 0.75rem;
-            opacity: 0.6;
-            text-align: center;
-            max-width: 100px;
-        }
-
-        .lesson-content {
-            background: var(--slate);
-            border-radius: 24px;
-            padding: 3rem;
-            margin-bottom: 2rem;
-        }
-
-        .lesson-content h2 {
-            font-family: var(--font-display);
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: var(--gold);
-        }
-
-        .lesson-content h3 {
-            font-family: var(--font-display);
-            font-size: 1.4rem;
-            margin: 2rem 0 1rem;
-            color: var(--cream);
-        }
-
-        .lesson-content p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-            opacity: 0.9;
-        }
-
-        .lesson-content ul, .lesson-content ol {
-            margin: 1.5rem 0;
-            padding-left: 1.5rem;
-        }
-
-        .lesson-content li {
-            margin-bottom: 0.75rem;
-            line-height: 1.6;
-        }
-
-        .analogy-box {
-            background: linear-gradient(135deg, rgba(201, 162, 39, 0.15), rgba(201, 162, 39, 0.05));
-            border: 1px solid rgba(201, 162, 39, 0.3);
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 2rem 0;
-        }
-
-        .analogy-box h4 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.1rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
-        }
-
-        .key-point {
-            background: var(--navy);
-            border-left: 4px solid var(--ember);
-            border-radius: 0 12px 12px 0;
-            padding: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .key-point h4 {
-            color: var(--ember);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.75rem;
-        }
-
-        .interactive-demo {
-            background: var(--navy);
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        .demo-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin: 2rem 0;
-        }
-
-        .demo-item {
-            background: var(--slate);
-            border: 2px solid var(--gold);
-            border-radius: 12px;
-            padding: 1.5rem;
-            min-width: 120px;
-            transition: all 0.3s ease;
-        }
-
-        .demo-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(201, 162, 39, 0.2);
-        }
-
-        .demo-item .icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .demo-item .label {
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            color: var(--gold);
-        }
-
-        .demo-arrow {
-            font-size: 1.5rem;
-            color: var(--gold);
-            opacity: 0.5;
-        }
-
-        .quiz-box {
-            background: var(--navy);
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 2rem 0;
-        }
-
-        .quiz-box h4 {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .quiz-question {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .quiz-options {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .quiz-option {
-            background: var(--slate);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 1rem 1.25rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .quiz-option:hover {
-            border-color: var(--gold);
-        }
-
-        .quiz-option.correct {
-            border-color: var(--success);
-            background: rgba(16, 185, 129, 0.15);
-        }
-
-        .quiz-option.wrong {
-            border-color: #EF4444;
-            background: rgba(239, 68, 68, 0.15);
-        }
-
-        .quiz-option.disabled {
-            pointer-events: none;
-        }
-
-        .option-letter {
-            width: 32px;
-            height: 32px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-family: var(--font-mono);
-        }
-
-        .quiz-feedback {
-            margin-top: 1rem;
-            padding: 1rem;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .quiz-feedback.show {
-            display: block;
-        }
-
-        .quiz-feedback.correct {
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid var(--success);
-        }
-
-        .quiz-feedback.wrong {
-            background: rgba(239, 68, 68, 0.15);
-            border: 1px solid #EF4444;
-        }
-
-        .lesson-nav {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-
-        .nav-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
-            font-family: var(--font-body);
-        }
-
-        .nav-btn.prev {
-            background: var(--slate);
-            color: var(--cream);
-        }
-
-        .nav-btn.next {
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            color: var(--navy);
-            font-weight: 600;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Comparison Section */
-        .comparison-table {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: var(--navy-light);
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid rgba(201, 162, 39, 0.2);
-        }
-
-        .comparison-header {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            background: rgba(201, 162, 39, 0.1);
-            padding: 1.5rem 2rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .comparison-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            padding: 1.25rem 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            transition: background 0.3s ease;
-        }
-
-        .comparison-row:hover {
-            background: rgba(201, 162, 39, 0.05);
-        }
-
-        .comparison-row span {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .comparison-row span:first-child {
-            justify-content: flex-start;
-        }
-
-        .check { color: var(--success); }
-        .cross { color: #EF4444; }
-
-        /* Glossary */
-        .glossary-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .glossary-card {
-            background: var(--navy-light);
-            border-radius: 16px;
-            padding: 1.5rem;
-            border-left: 4px solid var(--gold);
-        }
-
-        .glossary-term {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--gold);
-            margin-bottom: 0.75rem;
-        }
-
-        .glossary-def {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            opacity: 0.85;
-        }
-
-        .glossary-analogy {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
-            font-style: italic;
-            opacity: 0.7;
-        }
-
-        /* Completion Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(10, 22, 40, 0.95);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-
-        .modal-overlay.show {
-            display: flex;
-        }
-
-        .modal {
-            background: var(--slate);
-            border-radius: 24px;
-            padding: 3rem;
-            text-align: center;
-            max-width: 500px;
-            border: 1px solid rgba(201, 162, 39, 0.3);
-            animation: scaleIn 0.4s ease;
-        }
-
-        @keyframes scaleIn {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal h2 {
-            font-family: var(--font-display);
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .modal p {
-            opacity: 0.75;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-
-        .xp-reward {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(201, 162, 39, 0.15);
-            color: var(--gold);
-            padding: 0.75rem 1.5rem;
-            border-radius: 30px;
-            font-family: var(--font-mono);
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-        }
-
-        footer {
-            background: var(--slate);
-            padding: 4rem 2rem;
-            text-align: center;
-            border-top: 1px solid rgba(201, 162, 39, 0.1);
-        }
-
-        .footer-logo {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
-        }
-
-        .footer-text {
-            font-size: 0.9rem;
-            opacity: 0.6;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .courses-grid { grid-template-columns: 1fr; }
-            .comparison-header, .comparison-row {
-                grid-template-columns: 1fr;
-                text-align: left;
-            }
-            .comparison-row span { justify-content: flex-start; padding: 0.25rem 0; }
-            .lesson-progress { flex-wrap: wrap; gap: 1rem; }
-            .step-label { display: none; }
-        }
-    </style>
+<meta charset="UTF-8">
+<title>FLAME 101 — Sovereign Entitlements</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ---------- CORE STYLE ---------- */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f8fafc;
+    color: #1a1a1a;
+}
+
+/* ---------- LAYOUT ---------- */
+.course-container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 280px;
+    background: #1a1a1a;
+    color: white;
+    overflow-y: auto;
+    padding: 1rem;
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    font-size: 1.6rem;
+}
+.sidebar-header p {
+    margin: 0;
+    opacity: 0.7;
+    font-size: 0.95rem;
+}
+
+.lesson-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.2rem;
+}
+.lesson-item {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem;
+    border-radius: 8px;
+    margin-bottom: 0.6rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.lesson-item:hover {
+    background: #333;
+}
+.lesson-item.active {
+    background: #2563eb;
+}
+.lesson-item.completed {
+    background: #14532d;
+}
+
+.lesson-icon {
+    width: 28px;
+    height: 28px;
+    background: #444;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    color: white;
+    font-weight: bold;
+}
+
+.lesson-info h4 {
+    margin: 0;
+    font-size: 1rem;
+}
+.lesson-info span {
+    opacity: 0.6;
+    font-size: 0.85rem;
+}
+
+/* ---------- CONTENT ---------- */
+.content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+}
+
+.lesson {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.lesson-badge {
+    background: #2563eb;
+    color: white;
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+.lesson-title {
+    margin: 0.8rem 0;
+}
+
+.lesson-meta span {
+    margin-right: 1rem;
+    opacity: 0.6;
+}
+
+.lesson-content p {
+    line-height: 1.6rem;
+}
+
+.analogy-box {
+    background: #eef2ff;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.key-point {
+    background: #dcfce7;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+}
+
+.lesson-quiz {
+    background: #fef9c3;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+}
+
+.quiz-option {
+    background: white;
+    padding: 0.8rem;
+    border-radius: 6px;
+    margin: 0.4rem 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+.quiz-option.correct { background: #bbf7d0; }
+.quiz-option.wrong { background: #fecaca; }
+
+.option-letter {
+    font-weight: bold;
+    margin-right: 0.6rem;
+}
+
+.lesson-nav {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-btn {
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+.nav-btn.prev {
+    background: #555;
+}
+
+/* ---------- MODAL ---------- */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+}
+.modal-overlay.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 360px;
+    text-align: center;
+}
+
+.modal-icon {
+    font-size: 3rem;
+}
+
+.xp-reward {
+    background: #dcfce7;
+    padding: 0.8rem;
+    border-radius: 6px;
+    margin: 1.2rem 0;
+}
+</style>
 </head>
+
+
+
+
 <body>
-    <div class="bg-pattern"></div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-content">
-            <div class="logo">
-                <div class="logo-icon">🔥</div>
-                <span class="logo-text">FLAME University</span>
+<div class="course-container">
+
+<!-- ====================== SIDEBAR ====================== -->
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <h2>🌱 FLAME 101</h2>
+        <p>The Basics • 8 Lessons</p>
+    </div>
+
+    <ul class="lesson-list">
+        <li class="lesson-item active" data-lesson="1">
+            <div class="lesson-icon">1</div>
+            <div class="lesson-info">
+                <h4>What Is an Entitlement?</h4>
+                <span>3 min read</span>
             </div>
-            <ul class="nav-links">
-                <li><a onclick="showPage('home')">Home</a></li>
-                <li><a onclick="showPage('home'); setTimeout(() => document.getElementById('courses').scrollIntoView({behavior: 'smooth'}), 100)">Courses</a></li>
-                <li><a onclick="showPage('home'); setTimeout(() => document.getElementById('glossary').scrollIntoView({behavior: 'smooth'}), 100)">Glossary</a></li>
+        </li>
+
+        <li class="lesson-item" data-lesson="2">
+            <div class="lesson-icon">2</div>
+            <div class="lesson-info">
+                <h4>The Coat Check Analogy</h4>
+                <span>3 min read</span>
+            </div>
+        </li>
+
+        <li class="lesson-item" data-lesson="3">
+            <div class="lesson-icon">3</div>
+            <div class="lesson-info">
+                <h4>Why Not Just Use Money?</h4>
+                <span>4 min read</span>
+            </div>
+        </li>
+
+        <li class="lesson-item" data-lesson="8">
+            <div class="lesson-icon">8</div>
+            <div class="lesson-info">
+                <h4>Putting It All Together</h4>
+                <span>3 min read</span>
+            </div>
+        </li>
+    </ul>
+</aside>
+
+
+
+
+<!-- ====================== MAIN CONTENT ====================== -->
+<main class="content" id="lessonContent">
+
+<!-- ---------- LESSON 1 ---------- -->
+<div class="lesson" data-lesson="1">
+    <span class="lesson-badge">Lesson 1 of 8</span>
+    <h1 class="lesson-title">What Is an Entitlement?</h1>
+    <div class="lesson-meta">
+        <span>📖 3 min read</span>
+        <span>🎯 +15 XP</span>
+    </div>
+
+    <div class="lesson-content">
+        <p>An entitlement is <strong>a right to receive something</strong>.</p>
+
+        <h3>The Simple Definition</h3>
+        <p>If someone owes you anything — money, goods, services — you have an entitlement.</p>
+
+        <div class="analogy-box">
+            <h4>💡 Real-Life Examples</h4>
+            <ul>
+                <li>A gift card — right to $50 from the store</li>
+                <li>A boarding pass — right to a seat</li>
+                <li>A paycheck — right to wages earned</li>
             </ul>
-            <div class="progress-bar">
-                <div class="progress-track">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-                <div class="xp-badge"><span id="xpCount">0</span> XP</div>
-            </div>
         </div>
-    </nav>
 
-    <!-- HOME PAGE -->
-    <div class="page active" id="page-home">
-        <!-- Hero -->
-        <section class="hero">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <span>🎓</span>
-                    <span>Free Interactive Learning Platform</span>
-                </div>
-                <h1>Understand <span class="highlight">Sovereign Entitlements</span> Without the Jargon</h1>
-                <p>Master the FLAME Protocol in under an hour. No blockchain experience needed. Learn through interactive lessons, real-world analogies, and instant quizzes.</p>
-                <div class="hero-cta">
-                    <button class="btn btn-primary" onclick="showPage('course-101')">
-                        <span>Start Learning</span>
-                        <span>→</span>
-                    </button>
-                    <button class="btn btn-secondary" onclick="document.getElementById('concepts').scrollIntoView({behavior: 'smooth'})">
-                        <span>See How It Works</span>
-                    </button>
-                </div>
-            </div>
-        </section>
+        <h3>Why Is This Important?</h3>
+        <p>The FLAME Protocol records your entitlements permanently and immutably.</p>
 
-        <!-- Courses Section -->
-        <section class="section" id="courses">
-            <div class="section-header">
-                <h2>Choose Your Learning Path</h2>
-                <p>Whether you're completely new or want to dive deep, we have a track for you.</p>
+        <div class="key-point">
+            <h4>🔑 Key Takeaway</h4>
+            <p>An entitlement is simply your right to receive something.</p>
+        </div>
+
+        <div class="lesson-quiz">
+            <h3>✓ Quick Check</h3>
+            <p>Which of these is an entitlement?</p>
+
+            <div class="quiz-option" data-correct="true" onclick="checkAnswer(this)">
+                <span class="option-letter">A</span>
+                <span>A claim check for dry cleaning</span>
             </div>
 
-            <div class="courses-grid">
-                <div class="course-card" onclick="showPage('course-101')">
-                    <span class="course-level level-beginner">● Beginner</span>
-                    <div class="course-icon">🌱</div>
-                    <h3>FLAME 101: The Basics</h3>
-                    <p>Start here! Learn what entitlements are using everyday examples. No technical knowledge required.</p>
-                    <div class="course-meta">
-                        <span>📚 8 Lessons</span>
-                        <span>⏱️ 20 min</span>
-                        <span>🏆 100 XP</span>
-                    </div>
-                </div>
-
-                <div class="course-card" onclick="showPage('course-102')">
-                    <span class="course-level level-beginner">● Beginner</span>
-                    <div class="course-icon">🏛️</div>
-                    <h3>FLAME 102: Why Not Currency?</h3>
-                    <p>Understand why SEV is NOT money, cryptocurrency, or a stablecoin.</p>
-                    <div class="course-meta">
-                        <span>📚 6 Lessons</span>
-                        <span>⏱️ 15 min</span>
-                        <span>🏆 75 XP</span>
-                    </div>
-                </div>
-
-                <div class="course-card" onclick="showPage('course-201')">
-                    <span class="course-level level-intermediate">● Intermediate</span>
-                    <div class="course-icon">📜</div>
-                    <h3>FLAME 201: Legal Framework</h3>
-                    <p>Dive into UCC Article 8, warehouse receipts, and 4000 years of entitlement law.</p>
-                    <div class="course-meta">
-                        <span>📚 10 Lessons</span>
-                        <span>⏱️ 35 min</span>
-                        <span>🏆 150 XP</span>
-                    </div>
-                </div>
-
-                <div class="course-card" onclick="showPage('course-202')">
-                    <span class="course-level level-intermediate">● Intermediate</span>
-                    <div class="course-icon">⚙️</div>
-                    <h3>FLAME 202: Technical Deep Dive</h3>
-                    <p>How the smart contract works, function by function. For developers and auditors.</p>
-                    <div class="course-meta">
-                        <span>📚 12 Lessons</span>
-                        <span>⏱️ 45 min</span>
-                        <span>🏆 200 XP</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- How It Works Section -->
-        <section class="section" id="concepts" style="background: var(--navy-light);">
-            <div class="section-header">
-                <h2>How It Actually Works</h2>
-                <p>The complete value flow explained simply</p>
-            </div>
-
-            <div class="interactive-demo" style="max-width: 800px; margin: 0 auto; background: var(--slate);">
-                <p style="opacity: 0.7; margin-bottom: 1.5rem; font-size: 1.1rem;">The Entitlement Rail</p>
-                <div class="demo-visual" style="flex-direction: column; gap: 0.5rem;">
-                    <div class="demo-item" style="width: 100%; max-width: 280px;">
-                        <div class="icon">📜</div>
-                        <div class="label">Gold Certificate</div>
-                        <div style="font-size: 0.75rem; opacity: 0.6; margin-top: 0.5rem;">Real backing asset</div>
-                    </div>
-                    <div class="demo-arrow">↓</div>
-                    <div class="demo-item" style="width: 100%; max-width: 280px;">
-                        <div class="icon">⚙️</div>
-                        <div class="label">FLAMEC Credit</div>
-                        <div style="font-size: 0.75rem; opacity: 0.6; margin-top: 0.5rem;">Internal ledger entry</div>
-                    </div>
-                    <div class="demo-arrow">↓</div>
-                    <div class="demo-item" style="width: 100%; max-width: 280px;">
-                        <div class="icon">🎫</div>
-                        <div class="label">SEV Entitlement</div>
-                        <div style="font-size: 0.75rem; opacity: 0.6; margin-top: 0.5rem;">Your provable claim</div>
-                    </div>
-                    <div class="demo-arrow">↓</div>
-                    <div class="demo-item" style="width: 100%; max-width: 280px;">
-                        <div class="icon">📱</div>
-                        <div class="label">Your Wallet</div>
-                        <div style="font-size: 0.75rem; opacity: 0.6; margin-top: 0.5rem;">Access anywhere</div>
-                    </div>
-                </div>
-                <p style="margin-top: 2rem; font-size: 0.95rem; opacity: 0.8;">Each step is recorded permanently. Your entitlement cannot be altered or erased.</p>
-            </div>
-        </section>
-
-        <!-- Comparison Section -->
-        <section class="section">
-            <div class="section-header">
-                <h2>SEV vs Everything Else</h2>
-                <p>Understanding the key differences</p>
-            </div>
-
-            <div class="comparison-table">
-                <div class="comparison-header">
-                    <span>Feature</span>
-                    <span>SEV</span>
-                    <span>USDT</span>
-                    <span>USD</span>
-                </div>
-                <div class="comparison-row">
-                    <span>Is it currency?</span>
-                    <span class="cross">✗ No</span>
-                    <span class="check">✓ Yes</span>
-                    <span class="check">✓ Yes</span>
-                </div>
-                <div class="comparison-row">
-                    <span>Can be frozen by third party?</span>
-                    <span class="cross">✗ No</span>
-                    <span class="check">✓ Yes</span>
-                    <span class="check">✓ Yes</span>
-                </div>
-                <div class="comparison-row">
-                    <span>Backed by real assets?</span>
-                    <span class="check">✓ Yes</span>
-                    <span>?</span>
-                    <span class="cross">✗ No</span>
-                </div>
-                <div class="comparison-row">
-                    <span>Permanent on-chain record?</span>
-                    <span class="check">✓ Yes</span>
-                    <span class="check">✓ Yes</span>
-                    <span class="cross">✗ No</span>
-                </div>
-                <div class="comparison-row">
-                    <span>Based on ancient legal precedent?</span>
-                    <span class="check">✓ Yes</span>
-                    <span class="cross">✗ No</span>
-                    <span class="cross">✗ No</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Glossary Section -->
-        <section class="section" id="glossary" style="background: var(--navy-light);">
-            <div class="section-header">
-                <h2>Key Terms Explained Simply</h2>
-                <p>Jargon-free definitions with real-world analogies</p>
-            </div>
-
-            <div class="glossary-grid">
-                <div class="glossary-card">
-                    <div class="glossary-term">Entitlement</div>
-                    <div class="glossary-def">A legal right to receive something of value that's being held for you.</div>
-                    <div class="glossary-analogy">💡 Like a ticket that proves you have luggage at the airport</div>
-                </div>
-                <div class="glossary-card">
-                    <div class="glossary-term">Sovereign</div>
-                    <div class="glossary-def">The authority that issues and controls the entitlements. Cannot be overridden.</div>
-                    <div class="glossary-analogy">💡 Like a government for your financial claims</div>
-                </div>
-                <div class="glossary-card">
-                    <div class="glossary-term">Warehouse Receipt</div>
-                    <div class="glossary-def">An ancient legal concept: proof that goods are stored somewhere for you.</div>
-                    <div class="glossary-analogy">💡 Like a valet parking ticket, but for gold or grain</div>
-                </div>
-                <div class="glossary-card">
-                    <div class="glossary-term">UCC Article 8</div>
-                    <div class="glossary-def">US law governing "security entitlements" — rights to financial assets held by others.</div>
-                    <div class="glossary-analogy">💡 The rule book that makes your digital receipt legally valid</div>
-                </div>
-                <div class="glossary-card">
-                    <div class="glossary-term">Smart Contract</div>
-                    <div class="glossary-def">A computer program that automatically enforces rules. Cannot be changed once deployed.</div>
-                    <div class="glossary-analogy">💡 Like a vending machine: put in the right input, guaranteed output</div>
-                </div>
-                <div class="glossary-card">
-                    <div class="glossary-term">On-Chain</div>
-                    <div class="glossary-def">Recorded on the blockchain — permanent, public, and impossible to alter.</div>
-                    <div class="glossary-analogy">💡 Like carving your name in stone vs writing it on paper</div>
-                </div>
-            </div>
-        </section>
-
-        <footer>
-            <div class="footer-logo">🔥 FLAME University</div>
-            <p class="footer-text">Free educational resources for understanding sovereign entitlements and the FLAME Protocol. Built by Quantum Miracle Makers for the Autochthon Kingdom Decentralized Sovereign Trust.</p>
-        </footer>
-    </div>
-
-    <!-- COURSE 101 PAGE -->
-    <div class="page" id="page-course-101">
-        <div class="course-page">
-            <div class="course-header">
-                <div class="course-header-content">
-                    <button class="back-btn" onclick="showPage('home')">← Back to Courses</button>
-                    <span class="course-level level-beginner">● Beginner Course</span>
-                    <h1>🌱 FLAME 101: The Basics</h1>
-                    <p>Learn what entitlements are using everyday examples. No technical knowledge required. Complete all 8 lessons to earn 100 XP.</p>
-                </div>
-            </div>
-
-            <div class="lesson-container">
-                <div class="lesson-progress" id="lesson-progress-101">
-                    <div class="lesson-step">
-                        <div class="step-dot active" onclick="showLesson101(1)">1</div>
-                        <div class="step-label">What Is an Entitlement?</div>
-                    </div>
-                    <div class="lesson-step">
-                        <div class="step-dot" onclick="showLesson101(2)">2</div>
-                        <div class="step-label">The Coat Check</div>
-                    </div>
-                    <div class="lesson-step">
-                        <div class="step-dot" onclick="showLesson101(3)">3</div>
-                        <div class="step-label">Why Not Money?</div>
-                    </div>
-                    <div class="lesson-step">
-                        <div class="step-dot" onclick="showLesson101(4)">4</div>
-                        <div class="step-label">Sovereign</div>
-                    </div>
-                    <div class="lesson-step">
-                        <div class="step-dot" onclick="showLesson101(5)">5</div>
-                        <div class="step-label">Digital Part</div>
-                    </div>
-                    <div class="lesson-step">
-                        <div class="step-dot" onclick="showLesson101(6)">6</div>
-                        <div class="step-label">Value Flow</div>
-                    </div>
-                    <div class="lesson-step">
-                        <div class="step-dot" onclick="showLesson101(7)">7</div>
-                        <div class="step-label">Your Wallet</div>
-                    </div>
-                    <div class="lesson-step">
-                        <div class="step-dot" onclick="showLesson101(8)">8</div>
-                        <div class="step-label">Summary</div>
-                    </div>
-                </div>
-
-                <!-- Lesson 1 -->
-                <div class="lesson-content" id="lesson-101-1">
-                    <h2>Lesson 1: What Is an Entitlement?</h2>
-                    
-                    <p>Before we talk about technology, blockchains, or anything complicated, let's start with a word that might sound fancy but actually describes something very simple: <strong>entitlement</strong>.</p>
-
-                    <h3>The Simple Definition</h3>
-                    <p>An entitlement is <strong>a right to receive something</strong>. That's it. Nothing more complicated.</p>
-                    <p>If someone owes you something — money, goods, services, or anything else — you have an entitlement. It's your right to get it.</p>
-
-                    <div class="analogy-box">
-                        <h4>💡 Real Life Examples</h4>
-                        <p>You already deal with entitlements every day:</p>
-                        <ul>
-                            <li><strong>A gift card</strong> — entitles you to $50 worth of stuff from a store</li>
-                            <li><strong>A plane ticket</strong> — entitles you to a seat on a specific flight</li>
-                            <li><strong>A paycheck</strong> — entitles you to receive money from your employer</li>
-                            <li><strong>A receipt for repair</strong> — entitles you to get your fixed item back</li>
-                        </ul>
-                    </div>
-
-                    <h3>Why Is This Important?</h3>
-                    <p>The FLAME Protocol creates a new kind of entitlement — one that's digital, permanent, and impossible to take away.</p>
-                    <p>Instead of a paper receipt that can be lost, or a database entry that can be deleted, your entitlement is recorded in a way that <em>no one</em> can alter or erase.</p>
-
-                    <div class="key-point">
-                        <h4>🔑 Key Takeaway</h4>
-                        <p>An entitlement is simply your right to receive something. The FLAME Protocol makes those rights permanent and provable.</p>
-                    </div>
-
-                    <div class="quiz-box">
-                        <h4>✓ Quick Check</h4>
-                        <p class="quiz-question">Which of these is an example of an entitlement?</p>
-                        <div class="quiz-options" id="quiz-101-1">
-                            <div class="quiz-option" data-correct="false" onclick="checkQuiz(this, 'quiz-101-1')">
-                                <span class="option-letter">A</span>
-                                <span>A $20 bill in your wallet</span>
-                            </div>
-                            <div class="quiz-option" data-correct="true" onclick="checkQuiz(this, 'quiz-101-1')">
-                                <span class="option-letter">B</span>
-                                <span>A ticket to pick up your dry cleaning</span>
-                            </div>
-                            <div class="quiz-option" data-correct="false" onclick="checkQuiz(this, 'quiz-101-1')">
-                                <span class="option-letter">C</span>
-                                <span>A rock you found on the beach</span>
-                            </div>
-                        </div>
-                        <div class="quiz-feedback" id="feedback-quiz-101-1"></div>
-                    </div>
-                </div>
-
-                <!-- Lesson 2 -->
-                <div class="lesson-content" id="lesson-101-2" style="display: none;">
-                    <h2>Lesson 2: The Coat Check Analogy</h2>
-                    
-                    <p>The best way to understand what SEV (Sovereign Entitlement Voucher) is — and what it <em>isn't</em> — is through the coat check analogy.</p>
-
-                    <h3>The Coat Check Story</h3>
-                    <p>Imagine you walk into a fancy restaurant on a cold night. You're wearing an expensive coat. The host takes your coat and gives you a small ticket with a number on it.</p>
-
-                    <div class="interactive-demo">
-                        <p style="opacity: 0.7; margin-bottom: 1rem;">The Coat Check Process</p>
-                        <div class="demo-visual">
-                            <div class="demo-item">
-                                <div class="icon">🧥</div>
-                                <div class="label">Your Coat</div>
-                            </div>
-                            <div class="demo-arrow">→</div>
-                            <div class="demo-item">
-                                <div class="icon">📋</div>
-                                <div class="label">Coat Check</div>
-                            </div>
-                            <div class="demo-arrow">→</div>
-                            <div class="demo-item">
-                                <div class="icon">🎫</div>
-                                <div class="label">Your Ticket</div>
-                            </div>
-                        </div>
-                        <p style="font-size: 0.95rem; margin-top: 1rem;">The ticket PROVES you have a coat being held. It IS NOT the coat.</p>
-                    </div>
-
-                    <h3>What Is the Ticket?</h3>
-                    <ul>
-                        <li>It's <strong>NOT your coat</strong> — you can't wear it</li>
-                        <li>It's <strong>NOT money</strong> — you can't spend it at a store</li>
-                        <li>It's <strong>PROOF</strong> that your coat is being held for you</li>
-                        <li>It's your <strong>right</strong> to get your coat back</li>
-                    </ul>
-
-                    <div class="analogy-box">
-                        <h4>💡 SEV Works the Same Way</h4>
-                        <p>An SEV is like a digital coat check ticket. It's not money, and it's not the actual value — it's <strong>proof</strong> that value is being held for you, and your <strong>right</strong> to claim it.</p>
-                    </div>
-
-                    <h3>Why This Matters</h3>
-                    <p>Here's the crucial point: <strong>a coat check ticket cannot be regulated as clothing</strong>. It's not a coat. It's a receipt.</p>
-                    <p>Similarly, <strong>SEV cannot be regulated as currency</strong>. It's not money. It's a receipt for an entitlement.</p>
-
-                    <div class="key-point">
-                        <h4>🔑 Key Takeaway</h4>
-                        <p>SEV is a digital "coat check ticket" — proof that value is held for you. It's not money any more than a parking ticket is a car.</p>
-                    </div>
-
-                    <div class="quiz-box">
-                        <h4>✓ Quick Check</h4>
-                        <p class="quiz-question">Why can't a coat check ticket be regulated as clothing?</p>
-                        <div class="quiz-options" id="quiz-101-2">
-                            <div class="quiz-option" data-correct="false" onclick="checkQuiz(this, 'quiz-101-2')">
-                                <span class="option-letter">A</span>
-                                <span>Because it's too small</span>
-                            </div>
-                            <div class="quiz-option" data-correct="true" onclick="checkQuiz(this, 'quiz-101-2')">
-                                <span class="option-letter">B</span>
-                                <span>Because it's a receipt, not clothing — different category entirely</span>
-                            </div>
-                            <div class="quiz-option" data-correct="false" onclick="checkQuiz(this, 'quiz-101-2')">
-                                <span class="option-letter">C</span>
-                                <span>Because the restaurant says so</span>
-                            </div>
-                        </div>
-                        <div class="quiz-feedback" id="feedback-quiz-101-2"></div>
-                    </div>
-                </div>
-
-                <!-- Lesson 3 -->
-                <div class="lesson-content" id="lesson-101-3" style="display: none;">
-                    <h2>Lesson 3: Why Not Just Use Money?</h2>
-                    
-                    <p>Great question! If you want to give someone value, why not just send them dollars, or Bitcoin, or any other currency?</p>
-                    <p>The answer comes down to one word: <strong>control</strong>.</p>
-
-                    <h3>The Problem with Money</h3>
-                    <p>When you use someone else's money system, you play by their rules:</p>
-
-                    <div class="interactive-demo">
-                        <p style="opacity: 0.7; margin-bottom: 1rem;">Who Controls Your Money?</p>
-                        <div class="demo-visual">
-                            <div class="demo-item">
-                                <div class="icon">💵</div>
-                                <div class="label">US Dollars</div>
-                                <div style="font-size: 0.7rem; opacity: 0.6; margin-top: 0.5rem;">Federal Reserve</div>
-                            </div>
-                            <div class="demo-item">
-                                <div class="icon">💳</div>
-                                <div class="label">Bank Account</div>
-                                <div style="font-size: 0.7rem; opacity: 0.6; margin-top: 0.5rem;">Your Bank</div>
-                            </div>
-                            <div class="demo-item">
-                                <div class="icon">🪙</div>
-                                <div class="label">USDT</div>
-                                <div style="font-size: 0.7rem; opacity: 0.6; margin-top: 0.5rem;">Tether Ltd</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <p>Each of these can be:</p>
-                    <ul>
-                        <li><strong>Frozen</strong> — your access blocked without your consent</li>
-                        <li><strong>Seized</strong> — taken from you by various authorities</li>
-                        <li><strong>Devalued</strong> — worth less tomorrow than today</li>
-                        <li><strong>Censored</strong> — transactions blocked or reversed</li>
-                    </ul>
-
-                    <h3>The Entitlement Alternative</h3>
-                    <p>SEV doesn't use someone else's money system. Instead, it creates a <strong>new category</strong> entirely — one based on ancient legal principles that predate modern currency.</p>
-
-                    <div class="analogy-box">
-                        <h4>💡 Think of It This Way</h4>
-                        <p>Imagine you have gold stored in a vault. You could:</p>
-                        <ul>
-                            <li><strong>Option A:</strong> Sell the gold for dollars, then send dollars (now you're in the dollar system)</li>
-                            <li><strong>Option B:</strong> Give someone a receipt that says "you can claim this gold" (stay outside the dollar system)</li>
-                        </ul>
-                        <p><strong>SEV is Option B — but digital and permanent.</strong></p>
-                    </div>
-
-                    <div class="key-point">
-                        <h4>🔑 Key Takeaway</h4>
-                        <p>Money puts you in someone else's system. Entitlements let you create your own system based on real value you control.</p>
-                    </div>
-                </div>
-
-                <!-- Lesson 4 -->
-                <div class="lesson-content" id="lesson-101-4" style="display: none;">
-                    <h2>Lesson 4: What Makes It "Sovereign"?</h2>
-                    
-                    <p>You've heard the word "sovereign" in "Sovereign Entitlement Voucher." What does that actually mean?</p>
-
-                    <h3>Sovereign = Self-Governing</h3>
-                    <p>A sovereign entity is one that governs itself. It doesn't answer to a higher authority for its internal decisions.</p>
-
-                    <div class="analogy-box">
-                        <h4>💡 Countries Are Sovereign</h4>
-                        <p>France doesn't need permission from Germany to make French laws. Each country is sovereign within its borders.</p>
-                        <p>Similarly, the FLAME Protocol is sovereign within its system. It doesn't need permission from banks, governments, or corporations to issue entitlements.</p>
-                    </div>
-
-                    <h3>Why Sovereignty Matters</h3>
-                    <ul>
-                        <li><strong>No external override</strong> — No one outside the system can cancel your entitlement</li>
-                        <li><strong>Rules are fixed</strong> — The smart contract enforces the same rules for everyone</li>
-                        <li><strong>Transparent authority</strong> — You can see exactly who can do what</li>
-                    </ul>
-
-                    <h3>The Sovereign Entity</h3>
-                    <p>SEV is issued by the <strong>Autochthon Kingdom Decentralized Sovereign Trust</strong> — a sovereign entity with roots in the Treaty of Fort Pitt (1778).</p>
-                    <p>This isn't a random choice. Treaty rights create legal standing that exists independently of modern financial regulations.</p>
-
-                    <div class="key-point">
-                        <h4>🔑 Key Takeaway</h4>
-                        <p>"Sovereign" means self-governing. Your entitlement exists within a system that doesn't need external permission to operate.</p>
-                    </div>
-                </div>
-
-                <!-- Lesson 5 -->
-                <div class="lesson-content" id="lesson-101-5" style="display: none;">
-                    <h2>Lesson 5: The Digital Part</h2>
-                    
-                    <p>Okay, so we have entitlements that are sovereign. But why make them digital? Why use blockchain?</p>
-
-                    <h3>The Problem with Paper</h3>
-                    <p>Traditional entitlements (receipts, certificates, tickets) have problems:</p>
-                    <ul>
-                        <li>They can be <strong>lost</strong></li>
-                        <li>They can be <strong>forged</strong></li>
-                        <li>They can be <strong>destroyed</strong></li>
-                        <li>Verifying them requires <strong>trusting someone</strong></li>
-                    </ul>
-
-                    <h3>The Blockchain Solution</h3>
-                    <p>When your entitlement is recorded on a blockchain:</p>
-                    <ul>
-                        <li><strong>Can't be lost</strong> — It exists on thousands of computers worldwide</li>
-                        <li><strong>Can't be forged</strong> — Cryptography makes fakes mathematically impossible</li>
-                        <li><strong>Can't be destroyed</strong> — No single point of failure</li>
-                        <li><strong>Self-verifying</strong> — Anyone can confirm it's real without trusting a middleman</li>
-                    </ul>
-
-                    <div class="interactive-demo">
-                        <p style="opacity: 0.7; margin-bottom: 1rem;">Paper vs Digital Entitlement</p>
-                        <div class="demo-visual">
-                            <div class="demo-item" style="border-color: #EF4444;">
-                                <div class="icon">📄</div>
-                                <div class="label">Paper Receipt</div>
-                                <div style="font-size: 0.7rem; opacity: 0.6; margin-top: 0.5rem;">Can be lost/forged</div>
-                            </div>
-                            <div class="demo-arrow">vs</div>
-                            <div class="demo-item">
-                                <div class="icon">⛓️</div>
-                                <div class="label">SEV on Blockchain</div>
-                                <div style="font-size: 0.7rem; opacity: 0.6; margin-top: 0.5rem;">Permanent & provable</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="key-point">
-                        <h4>🔑 Key Takeaway</h4>
-                        <p>Blockchain makes entitlements permanent, unforgeable, and self-verifying. Your proof exists forever.</p>
-                    </div>
-                </div>
-
-                <!-- Lesson 6 -->
-                <div class="lesson-content" id="lesson-101-6" style="display: none;">
-                    <h2>Lesson 6: How Value Flows</h2>
-                    
-                    <p>Let's trace exactly how value moves from something real to your digital entitlement.</p>
-
-                    <h3>The Certificate Rail</h3>
-                    <p>SEV doesn't appear from nowhere. It's created through a documented process:</p>
-
-                    <div class="interactive-demo">
-                        <p style="opacity: 0.7; margin-bottom: 1.5rem;">The Value Flow</p>
-                        <div class="demo-visual" style="flex-direction: column; gap: 0.5rem;">
-                            <div class="demo-item" style="width: 100%; max-width: 300px;">
-                                <div class="icon">📜</div>
-                                <div class="label">Step 1: Certificate</div>
-                                <div style="font-size: 0.75rem; opacity: 0.6; margin-top: 0.5rem;">Real asset backing (gold, treaty rights)</div>
-                            </div>
-                            <div class="demo-arrow">↓</div>
-                            <div class="demo-item" style="width: 100%; max-width: 300px;">
-                                <div class="icon">📊</div>
-                                <div class="label">Step 2: FLAMEC Credit</div>
-                                <div style="font-size: 0.75rem; opacity: 0.6; margin-top: 0.5rem;">Internal accounting entry</div>
-                            </div>
-                            <div class="demo-arrow">↓</div>
-                            <div class="demo-item" style="width: 100%; max-width: 300px;">
-                                <div class="icon">🎫</div>
-                                <div class="label">Step 3: SEV Issued</div>
-                                <div style="font-size: 0.75rem; opacity: 0.6; margin-top: 0.5rem;">On-chain entitlement created</div>
-                            </div>
-                            <div class="demo-arrow">↓</div>
-                            <div class="demo-item" style="width: 100%; max-width: 300px;">
-                                <div class="icon">📱</div>
-                                <div class="label">Step 4: Your Wallet</div>
-                                <div style="font-size: 0.75rem; opacity: 0.6; margin-top: 0.5rem;">You hold the provable claim</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h3>Why This Matters</h3>
-                    <p>Every SEV can be traced back to its origin. There's no "printing money from thin air." The chain of custody is:</p>
-                    <ul>
-                        <li><strong>Documented</strong> — Every step is recorded</li>
-                        <li><strong>Verifiable</strong> — Anyone can trace the origin</li>
-                        <li><strong>Immutable</strong> — The history can't be changed</li>
-                    </ul>
-
-                    <div class="key-point">
-                        <h4>🔑 Key Takeaway</h4>
-                        <p>SEV has a documented origin story. Real value → internal credit → your entitlement. Every step is recorded.</p>
-                    </div>
-                </div>
-
-                <!-- Lesson 7 -->
-                <div class="lesson-content" id="lesson-101-7" style="display: none;">
-                    <h2>Lesson 7: Your Wallet, Your Proof</h2>
-                    
-                    <p>When you hold SEV in your wallet, what exactly do you have?</p>
-
-                    <h3>What Your Wallet Shows</h3>
-                    <p>Your crypto wallet (MetaMask, Trust Wallet, etc.) will show SEV like any other token. You'll see:</p>
-                    <ul>
-                        <li>Token name: <strong>Sovereign Entitlement Voucher</strong></li>
-                        <li>Symbol: <strong>SEV</strong></li>
-                        <li>Your balance: <strong>Your entitlement amount</strong></li>
-                    </ul>
-
-                    <h3>What You Actually Have</h3>
-                    <p>Behind that simple display is something powerful:</p>
-                    <ul>
-                        <li><strong>Legal claim</strong> — A receivable under UCC Article 8</li>
-                        <li><strong>Provenance</strong> — Traceable origin from certificate to you</li>
-                        <li><strong>Permanence</strong> — Recorded forever on Ethereum</li>
-                        <li><strong>Sovereignty</strong> — Independent of traditional financial systems</li>
-                    </ul>
-
-                    <div class="analogy-box">
-                        <h4>💡 It's Like Having the Deed to a House</h4>
-                        <p>A house deed is just a piece of paper. But legally, it represents ownership of real property. SEV is similar — it looks like a simple token, but it represents a legal entitlement with real backing.</p>
-                    </div>
-
-                    <div class="key-point">
-                        <h4>🔑 Key Takeaway</h4>
-                        <p>Your wallet holds more than a token — it holds a permanent, provable, sovereign legal claim.</p>
-                    </div>
-                </div>
-
-                <!-- Lesson 8 (Summary) -->
-                <div class="lesson-content" id="lesson-101-8" style="display: none;">
-                    <h2>Lesson 8: Putting It All Together</h2>
-                    
-                    <p>🎉 <strong>Congratulations!</strong> You've completed FLAME 101. Let's summarize everything you've learned.</p>
-
-                    <h3>The Big Picture</h3>
-                    <div class="interactive-demo" style="background: var(--navy);">
-                        <div class="demo-visual" style="flex-direction: column; gap: 1rem;">
-                            <div class="demo-item" style="width: 100%; max-width: 400px;">
-                                <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">1️⃣ Entitlement = Right to Receive</div>
-                                <div style="font-size: 0.85rem; opacity: 0.7;">Not money. A claim to something held for you.</div>
-                            </div>
-                            <div class="demo-item" style="width: 100%; max-width: 400px;">
-                                <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">2️⃣ Like a Coat Check Ticket</div>
-                                <div style="font-size: 0.85rem; opacity: 0.7;">Proof that value exists, not the value itself.</div>
-                            </div>
-                            <div class="demo-item" style="width: 100%; max-width: 400px;">
-                                <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">3️⃣ Sovereign = Self-Governing</div>
-                                <div style="font-size: 0.85rem; opacity: 0.7;">No external authority can override it.</div>
-                            </div>
-                            <div class="demo-item" style="width: 100%; max-width: 400px;">
-                                <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">4️⃣ Digital = Permanent & Provable</div>
-                                <div style="font-size: 0.85rem; opacity: 0.7;">Blockchain makes it unforgeable and forever.</div>
-                            </div>
-                            <div class="demo-item" style="width: 100%; max-width: 400px;">
-                                <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">5️⃣ Traceable Origin</div>
-                                <div style="font-size: 0.85rem; opacity: 0.7;">Certificate → FLAMEC → SEV → Your Wallet</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <h3>The One-Sentence Summary</h3>
-                    <div class="analogy-box">
-                        <p style="font-size: 1.2rem; font-weight: 500; margin: 0;"><strong>SEV is a digital receipt that proves you have a permanent, irrevocable right to value — built on legal principles older than money itself.</strong></p>
-                    </div>
-
-                    <h3>What's Next?</h3>
-                    <ul>
-                        <li><strong>FLAME 102:</strong> Deep dive into why SEV can't be classified as currency</li>
-                        <li><strong>FLAME 201:</strong> The legal framework (UCC Article 8, warehouse receipts)</li>
-                        <li><strong>FLAME 202:</strong> Technical details of the smart contract</li>
-                    </ul>
-
-                    <div class="key-point" style="border-left-color: var(--success);">
-                        <h4 style="color: var(--success);">🏆 Course Complete!</h4>
-                        <p>You now understand sovereign entitlements better than most banking executives. That's not an exaggeration.</p>
-                    </div>
-                </div>
-
-                <div class="lesson-nav">
-                    <button class="nav-btn prev" id="prev-btn-101" onclick="prevLesson101()" style="visibility: hidden;">← Previous</button>
-                    <button class="nav-btn next" id="next-btn-101" onclick="nextLesson101()">Next Lesson →</button>
-                </div>
+            <div class="quiz-option" data-correct="false" onclick="checkAnswer(this)">
+                <span class="option-letter">B</span>
+                <span>A $20 bill</span>
             </div>
         </div>
     </div>
 
-    <!-- Completion Modal -->
-    <div class="modal-overlay" id="completionModal">
-        <div class="modal">
-            <div class="modal-icon">🎉</div>
-            <h2>Course Complete!</h2>
-            <p>You've finished FLAME 101: The Basics. You now understand the fundamental concepts of sovereign entitlements.</p>
-            <div class="xp-reward">+100 XP Earned!</div>
-            <button class="btn btn-primary" onclick="closeModal(); showPage('home');">Continue Learning →</button>
-        </div>
+    <div class="lesson-nav">
+        <div></div>
+        <button class="nav-btn next" onclick="nextLesson()">Next →</button>
+    </div>
+</div>
+
+
+
+
+
+<!-- ---------- LESSON 2 ---------- -->
+<div class="lesson" data-lesson="2" style="display:none;">
+    <span class="lesson-badge">Lesson 2 of 8</span>
+    <h1 class="lesson-title">The Coat Check Analogy</h1>
+
+    <div class="lesson-meta">
+        <span>📖 3 min read</span>
+        <span>🎯 +15 XP</span>
     </div>
 
-    <script>
-        // State
-        let currentLesson101 = 1;
-        const totalLessons101 = 8;
-        let totalXP = parseInt(localStorage.getItem('flameXP') || '0');
-        const maxXP = 1000;
+    <p>SEV works exactly like a coat-check ticket.</p>
 
-        // XP System
-        function updateXP() {
-            document.getElementById('xpCount').textContent = totalXP;
-            document.getElementById('progressFill').style.width = Math.min((totalXP / maxXP) * 100, 100) + '%';
-        }
+    <div class="analogy-box">
+        <p>It is not the coat — it is the right to retrieve the coat.</p>
+    </div>
 
-        function addXP(amount) {
-            totalXP += amount;
-            localStorage.setItem('flameXP', totalXP);
-            updateXP();
-        }
+    <div class="key-point">
+        <strong>🔑 SEV is a receipt — not the asset itself.</strong>
+    </div>
 
-        // Page Navigation
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const page = document.getElementById('page-' + pageId);
-            if (page) {
-                page.classList.add('active');
-                window.scrollTo(0, 0);
-            }
-        }
+    <div class="lesson-nav">
+        <button class="nav-btn prev" onclick="prevLesson()">← Previous</button>
+        <button class="nav-btn next" onclick="nextLesson()">Next →</button>
+    </div>
+</div>
 
-        // Course 101 Lesson Navigation
-        function showLesson101(num) {
-            // Hide all lessons
-            for (let i = 1; i <= totalLessons101; i++) {
-                const lesson = document.getElementById('lesson-101-' + i);
-                if (lesson) lesson.style.display = 'none';
-            }
-            
-            // Show current lesson
-            const currentLessonEl = document.getElementById('lesson-101-' + num);
-            if (currentLessonEl) currentLessonEl.style.display = 'block';
 
-            // Update progress dots
-            const dots = document.querySelectorAll('#lesson-progress-101 .step-dot');
-            dots.forEach((dot, index) => {
-                dot.classList.remove('active', 'completed');
-                if (index + 1 < num) dot.classList.add('completed');
-                if (index + 1 === num) dot.classList.add('active');
-            });
 
-            // Update nav buttons
-            document.getElementById('prev-btn-101').style.visibility = num === 1 ? 'hidden' : 'visible';
-            
-            if (num === totalLessons101) {
-                document.getElementById('next-btn-101').textContent = '🎉 Complete Course';
-                document.getElementById('next-btn-101').onclick = completeCourse101;
-            } else {
-                document.getElementById('next-btn-101').textContent = 'Next Lesson →';
-                document.getElementById('next-btn-101').onclick = nextLesson101;
-            }
 
-            currentLesson101 = num;
-            window.scrollTo(0, 300);
-        }
 
-        function nextLesson101() {
-            if (currentLesson101 < totalLessons101) {
-                addXP(10);
-                showLesson101(currentLesson101 + 1);
-            }
-        }
+<!-- ---------- LESSON 3 ---------- -->
+<div class="lesson" data-lesson="3" style="display:none;">
+    <span class="lesson-badge">Lesson 3 of 8</span>
+    <h1 class="lesson-title">Why Not Just Use Money?</h1>
 
-        function prevLesson101() {
-            if (currentLesson101 > 1) {
-                showLesson101(currentLesson101 - 1);
-            }
-        }
+    <div class="lesson-meta">
+        <span>📖 4 min read</span>
+        <span>🎯 +15 XP</span>
+    </div>
 
-        function completeCourse101() {
-            addXP(100);
-            localStorage.setItem('flame101_complete', 'true');
-            document.getElementById('completionModal').classList.add('show');
-        }
+    <p>Money places you inside someone else’s system. Entitlements do not.</p>
 
-        function closeModal() {
-            document.getElementById('completionModal').classList.remove('show');
-        }
+    <div class="analogy-box">
+        <p>SEV is an ancient legal category older than currency systems.</p>
+    </div>
 
-        // Quiz System
-        function checkQuiz(element, quizId) {
-            const options = document.querySelectorAll('#' + quizId + ' .quiz-option');
-            const feedback = document.getElementById('feedback-' + quizId);
-            const isCorrect = element.dataset.correct === 'true';
+    <div class="lesson-nav">
+        <button class="nav-btn prev" onclick="prevLesson()">← Previous</button>
+        <button class="nav-btn next" onclick="showLesson(8)">Next →</button>
+    </div>
+</div>
 
-            options.forEach(opt => {
-                opt.classList.add('disabled');
-                if (opt.dataset.correct === 'true') {
-                    opt.classList.add('correct');
-                } else if (opt === element && !isCorrect) {
-                    opt.classList.add('wrong');
-                }
-            });
 
-            feedback.classList.add('show');
-            if (isCorrect) {
-                feedback.classList.add('correct');
-                feedback.innerHTML = '✓ Correct! +10 XP';
-                addXP(10);
-            } else {
-                feedback.classList.add('wrong');
-                feedback.innerHTML = '✗ Not quite. The correct answer is highlighted above.';
-            }
-        }
 
-        // Initialize
-        updateXP();
-    </script>
+
+
+<!-- ---------- LESSON 8 (Final) ---------- -->
+<div class="lesson" data-lesson="8" style="display:none;">
+    <span class="lesson-badge">Lesson 8 of 8 — Final</span>
+    <h1 class="lesson-title">Putting It All Together</h1>
+
+    <p>You’ve mastered the foundation. You understand entitlements, receipts, sovereignty.</p>
+
+    <div class="analogy-box">
+        <strong>SEV = Digital, sovereign receipt proving your right to value.</strong>
+    </div>
+
+    <button class="nav-btn next" onclick="completeCourse()" style="background:#16a34a;">
+        🎉 Complete Course
+    </button>
+</div>
+
+</main>
+</div>
+
+
+
+
+<!-- ====================== COMPLETION MODAL ====================== -->
+<div class="modal-overlay" id="completionModal">
+    <div class="modal">
+        <div class="modal-icon">🎉</div>
+        <h2>Course Complete!</h2>
+        <p>You finished FLAME 101.</p>
+        <div class="xp-reward">+100 XP Earned</div>
+    </div>
+</div>
+
+
+
+
+<!-- ====================== SCRIPT ====================== -->
+<script>
+let currentLesson = 1;
+
+function showLesson(num) {
+    document.querySelectorAll('.lesson').forEach(x => x.style.display = 'none');
+    document.querySelector('.lesson[data-lesson="' + num + '"]').style.display = 'block';
+
+    document.querySelectorAll('.lesson-item').forEach(i => {
+        i.classList.remove('active');
+        if (parseInt(i.dataset.lesson) === num) i.classList.add('active');
+    });
+
+    currentLesson = num;
+    window.scrollTo(0, 0);
+}
+
+function nextLesson() {
+    if (currentLesson === 1) showLesson(2);
+    else if (currentLesson === 2) showLesson(3);
+    else if (currentLesson === 3) showLesson(8);
+}
+
+function prevLesson() {
+    if (currentLesson === 2) showLesson(1);
+    else if (currentLesson === 3) showLesson(2);
+    else if (currentLesson === 8) showLesson(3);
+}
+
+function checkAnswer(el) {
+    const correct = el.dataset.correct === "true";
+
+    if (correct) {
+        el.classList.add("correct");
+    } else {
+        el.classList.add("wrong");
+    }
+
+    el.parentElement.querySelectorAll(".quiz-option").forEach(o => {
+        o.style.pointerEvents = "none";
+        if (o.dataset.correct === "true") o.classList.add("correct");
+    });
+}
+
+function completeCourse() {
+    document.getElementById('completionModal').classList.add('show');
+}
+
+showLesson(1);
+</script>
+
 </body>
 </html>
